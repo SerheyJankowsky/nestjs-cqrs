@@ -1,7 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UpdateUserCommand } from '../impl/update-user.comman';
 import { IUser } from '@interfaces/interfaces';
-import { UserEntity } from '@entities/entities';
 import { UserRepository } from '@repositorise/repositories';
 
 @CommandHandler(UpdateUserCommand)
