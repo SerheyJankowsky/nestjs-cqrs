@@ -8,11 +8,7 @@ export class UserRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
   public async createUser(user: UserEntity): Promise<IUser> {
-    const userExist = await this.prismaService.user.findUnique({
-      where: {
-        email: user.email,
-      },
-    });
+    const userExist = await this.find(user.email);
     if (userExist) {
       throw new HttpException('User already exists', HttpStatus.CONFLICT);
     }
@@ -23,12 +19,39 @@ export class UserRepository {
   }
 
   public async findUser(id: string): Promise<IUser> {
-    const user = await this.prismaService.user.findUnique({
-      where: { id: id },
-    });
+    const user = await this.find(id);
     if (!user) {
       throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
     }
     return user;
+  }
+
+  public async loginUser(email: string): Promise<IUser> {
+    const user = await this.findUser(email);
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
+    }
+    return user;
+  }
+
+  public async updateUser(user: Partial<IUser>): Promise<IUser> {
+    const existUser = await this.find(user.id);
+    if (!existUser) {
+      throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
+    }
+    return await this.prismaService.user.update({
+      where: {
+        id: user.id,
+      },
+      data: user,
+    });
+  }
+
+  private async find(identifire: string) {
+    return this.prismaService.user.findFirst({
+      where: {
+        OR: [{ email: identifire }, { id: identifire }],
+      },
+    });
   }
 }

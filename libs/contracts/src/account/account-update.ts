@@ -1,15 +1,15 @@
 import { IUser } from '@interfaces/interfaces';
-import { IsEmail, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsOptional, IsString } from 'class-validator';
 
 export namespace AccountUpdate {
   export const topic = ':id';
-  export class Request implements IUser {
+  export class Request {
     @IsString()
+    @IsOptional()
     userName: string;
     @IsEmail()
-    email: string;
-    @MinLength(6)
-    password: string;
+    @IsOptional()
+    email?: string;
   }
   export class Response {
     user: IUser;

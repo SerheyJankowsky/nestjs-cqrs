@@ -2,7 +2,7 @@ import { IUser } from '@interfaces/interfaces';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export namespace AccountRegister {
-  export const topic = '';
+  export const topic = 'register';
   export class Request implements IUser {
     @IsString()
     @IsNotEmpty()

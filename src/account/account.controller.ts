@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetUserQuery } from './queries/impl/get-user.query';
 import { IUser } from '@interfaces/interfaces';
-import { CreateUserCommand } from './commands/impl/create-user.command';
+import { AccountUpdate } from '@contracts/contracts';
+import { UpdateUserCommand } from './commands/impl/update-user.comman';
 
 @Controller('account')
 export class AccountController {
@@ -12,15 +13,17 @@ export class AccountController {
   ) {}
 
   @Get(':id')
-  async getAccount(@Param() params: { id: string }): Promise<IUser> {
+  public async getAccount(@Param() params: { id: string }): Promise<IUser> {
     return await this.queryBus.execute(new GetUserQuery(params.id));
   }
 
-  @Post()
-  async createUser(@Body() user: IUser): Promise<IUser> {
-    const { userName, email, password } = user;
-    return await this.commandBus.execute(
-      new CreateUserCommand(userName, email, password),
+  @Patch(AccountUpdate.topic)
+  public async updateUser(
+    @Param() param: { id: string },
+    @Body() user: AccountUpdate.Request,
+  ): Promise<AccountUpdate.Response> {
+    return this.commandBus.execute(
+      new UpdateUserCommand(param.id, user.userName, user.email),
     );
   }
 }

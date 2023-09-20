@@ -3,11 +3,11 @@ import { AccountController } from './account.controller';
 import { CqrsModule } from '@nestjs/cqrs';
 import { GetUserHandler } from './queries/handler/get-user.handler';
 import { UserRepository } from '@repositorise/repositories';
-import { CreateUserHandler } from './commands/handler/create-user.handler';
+import { UpdateUserHandler } from './commands/handler/update-user.handler';
 
 @Module({
   imports: [CqrsModule],
   controllers: [AccountController],
-  providers: [UserRepository, GetUserHandler, CreateUserHandler],
+  providers: [UserRepository, GetUserHandler, UpdateUserHandler],
 })
 export class AccountModule {}
