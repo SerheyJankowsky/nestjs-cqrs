@@ -1,4 +1,4 @@
-import { IQueryBus, QueryHandler } from '@nestjs/cqrs';
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { LoginQuery } from '../impl/login.query';
 import { IUser } from '@interfaces/interfaces';
 import { UserRepository } from '@repositorise/repositories';
@@ -6,7 +6,7 @@ import { UserEntity } from '@entities/entities';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 @QueryHandler(LoginQuery)
-export class LoginHandler implements IQueryBus<LoginQuery> {
+export class LoginHandler implements IQueryHandler<LoginQuery> {
   constructor(private readonly userRepository: UserRepository) {}
   public async execute(query: LoginQuery): Promise<IUser> {
     const isExist = await this.userRepository.loginUser(query.email);

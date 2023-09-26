@@ -10,6 +10,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   public async execute(command: CreateUserCommand): Promise<IUser> {
     const user = new UserEntity(command);
     await user.hashPassword(command.password);
-    return await this.userRepository.createUser(user);
+    const newUser = await this.userRepository.createUser(user);
+    return new UserEntity(newUser);
   }
 }
