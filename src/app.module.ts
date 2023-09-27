@@ -2,9 +2,17 @@ import { Module } from '@nestjs/common';
 import { DBModule } from './db/db.module';
 import { AccountModule } from './account/account.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import { AuthGuardModule } from '@guards/auth/authGuard.module';
 
 @Module({
-  imports: [DBModule, AccountModule, AuthModule],
+  imports: [
+    ConfigModule.forRoot({ envFilePath: '.env.example', isGlobal: true }),
+    AuthGuardModule,
+    DBModule,
+    AccountModule,
+    AuthModule,
+  ],
   controllers: [],
   providers: [],
 })

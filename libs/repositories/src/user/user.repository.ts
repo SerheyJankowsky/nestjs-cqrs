@@ -39,12 +39,22 @@ export class UserRepository {
     if (!existUser) {
       throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
     }
-    return await this.prismaService.user.update({
-      where: {
-        id: user.id,
-      },
-      data: user,
-    });
+    try {
+      return await this.prismaService.user.update({
+        where: {
+          id: existUser.id,
+        },
+        data: user,
+      });
+    } catch (e) {
+      if (e.code === 'P2002') {
+        throw new HttpException(
+          `User with ${e.meta.target}:${user[e.meta.target]} is exist`,
+          HttpStatus.CONFLICT,
+        );
+      }
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
+    }
   }
 
   private async find(identifire: string) {

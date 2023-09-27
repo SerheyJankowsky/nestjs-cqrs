@@ -13,8 +13,10 @@ export namespace AccountRegister {
     @MinLength(6)
     @IsNotEmpty()
     password: string;
+    repeatPassword: string;
   }
   export class Response {
+    token: string;
     user: IUser;
   }
 }

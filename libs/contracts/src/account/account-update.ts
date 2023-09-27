@@ -2,7 +2,7 @@ import { IUser } from '@interfaces/interfaces';
 import { IsEmail, IsOptional, IsString } from 'class-validator';
 
 export namespace AccountUpdate {
-  export const topic = ':id';
+  export const topic = '';
   export class Request {
     @IsString()
     @IsOptional()

@@ -13,5 +13,6 @@ export namespace AccountLogin {
   }
   export class Response {
     user: IUser;
+    token: string;
   }
 }

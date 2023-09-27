@@ -1,9 +1,11 @@
 import { IUser } from '@interfaces/interfaces';
 import { compare, genSalt, hash } from 'bcrypt';
+import { Exclude } from 'class-transformer';
 
 export class UserEntity implements IUser {
   public userName: string;
   public email: string;
+  @Exclude()
   public password: string;
 
   public id?: string;

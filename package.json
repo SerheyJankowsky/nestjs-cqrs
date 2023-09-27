@@ -85,7 +85,9 @@
       "^@repositorise/repositories(|/.*)$": "<rootDir>/libs/repositories/src/$1",
       "^@entities/entities(|/.*)$": "<rootDir>/libs/entities/src/$1",
       "^@interfaces/interfaces(|/.*)$": "<rootDir>/libs/interfaces/src/$1",
-      "^@contracts/contracts(|/.*)$": "<rootDir>/libs/contracts/src/$1"
+      "^@contracts/contracts(|/.*)$": "<rootDir>/libs/contracts/src/$1",
+      "^@guards/guards(|/.*)$": "<rootDir>/libs/guards/src/$1",
+      "^@decorators/decorators(|/.*)$": "<rootDir>/libs/decorators/src/$1"
     }
   }
 }
