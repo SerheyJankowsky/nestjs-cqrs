@@ -8,8 +8,40 @@ datasource db {
 }
 
 model User {
-  id       String @id @unique @default(uuid())
-  userName String @map("user_name")
-  email    String @unique
-  password String
+  id         String     @id @unique @default(uuid())
+  userName   String     @map("user_name")
+  email      String     @unique
+  password   String
+  categoryes Category[]
+  thing      Thing[]
+}
+
+model Category {
+  id          String        @id @unique @default(uuid())
+  name        String        @unique
+  description String?
+  subCategory SubCategory[]
+  User        User?         @relation(fields: [userId], references: [id])
+  userId      String?
+  thing       Thing[]
+}
+
+model SubCategory {
+  id         String    @id @unique @default(uuid())
+  name       String    @unique
+  categoryId String
+  category   Category? @relation(fields: [categoryId], references: [id])
+  thing      Thing[]
+}
+
+model Thing {
+  id            String       @id @unique @default(uuid())
+  name          String       @unique
+  description   String?
+  category      Category?    @relation(fields: [categoryId], references: [id])
+  categoryId    String?
+  User          User?        @relation(fields: [userId], references: [id])
+  userId        String?
+  SubCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
+  subCategoryId String?
 }

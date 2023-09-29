@@ -1,4 +1,4 @@
-import { IUser } from '@interfaces/interfaces';
+import { ICategory, IThing, IUser } from '@interfaces/interfaces';
 import { compare, genSalt, hash } from 'bcrypt';
 import { Exclude } from 'class-transformer';
 
@@ -9,6 +9,9 @@ export class UserEntity implements IUser {
   public password: string;
 
   public id?: string;
+
+  categories?: ICategory[];
+  things?: IThing[];
 
   constructor(user: Partial<IUser>) {
     Object.assign(this, user);
