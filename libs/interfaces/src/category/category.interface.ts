@@ -2,10 +2,9 @@ import { ISubCategory } from '@interfaces/interfaces/category/subcategory.interf
 import { IThing } from '@interfaces/interfaces/thing/thing.intarface';
 
 export interface ICategory {
-  userId: string | null;
+  userId?: string | null;
   name: string;
-  id: string;
-  description: string | null;
+  id?: string;
   subCategories?: ISubCategory[];
   thing?: IThing[];
 }

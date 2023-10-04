@@ -10,8 +10,8 @@ export class UserEntity implements IUser {
 
   public id?: string;
 
-  categories?: ICategory[];
-  things?: IThing[];
+  categories?: ICategory[] = [];
+  things?: IThing[] = [];
 
   constructor(user: Partial<IUser>) {
     Object.assign(this, user);

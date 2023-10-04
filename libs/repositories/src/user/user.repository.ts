@@ -13,7 +13,11 @@ export class UserRepository {
       throw new HttpException('User already exists', HttpStatus.CONFLICT);
     }
     const newUser = await this.prismaService.user.create({
-      data: user,
+      data: {
+        userName: user.userName,
+        email: user.email,
+        password: user.password,
+      },
     });
     return newUser;
   }
@@ -44,7 +48,10 @@ export class UserRepository {
         where: {
           id: existUser.id,
         },
-        data: user,
+        data: {
+          email: user.email,
+          userName: user.userName,
+        },
       });
     } catch (e) {
       if (e.code === 'P2002') {
@@ -61,6 +68,10 @@ export class UserRepository {
     return this.prismaService.user.findFirst({
       where: {
         OR: [{ email: identifire }, { id: identifire }],
+      },
+      include: {
+        categories: true,
+        thing: true,
       },
     });
   }
