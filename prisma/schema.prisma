@@ -20,28 +20,30 @@ model Category {
   id          String        @id @unique @default(uuid())
   name        String        @unique
   description String?
-  subCategory SubCategory[]
-  User        User?         @relation(fields: [userId], references: [id])
   userId      String?
+  User        User?         @relation(fields: [userId], references: [id])
+  subCategory SubCategory[]
   thing       Thing[]
 }
 
 model SubCategory {
-  id         String    @id @unique @default(uuid())
-  name       String    @unique
+  id         String   @id @unique @default(uuid())
+  name       String   @unique
   categoryId String
-  category   Category? @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
   thing      Thing[]
+
+  @@map("sub_category")
 }
 
 model Thing {
   id            String       @id @unique @default(uuid())
   name          String       @unique
   description   String?
-  category      Category?    @relation(fields: [categoryId], references: [id])
   categoryId    String?
-  User          User?        @relation(fields: [userId], references: [id])
   userId        String?
-  SubCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
   subCategoryId String?
+  category      Category?    @relation(fields: [categoryId], references: [id])
+  subCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
+  user          User?        @relation(fields: [userId], references: [id])
 }
