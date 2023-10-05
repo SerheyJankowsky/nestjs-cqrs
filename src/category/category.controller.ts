@@ -12,6 +12,7 @@ import { Auth } from '@guards';
 import {
   CreateCategoryContract,
   DeleteCategoryContract,
+  GetCategoriesContract,
   GetCategoryContract,
   UpdateCategoryContract,
 } from '@contracts/contracts';
@@ -20,6 +21,8 @@ import { CreateCategoryCommand } from './commands/impl/create-category.command';
 import { UpdateCategoryCommand } from './commands/impl/update-category.command';
 import { GetCategoryQuery } from './queries/impl/get-category.query';
 import { DeleteCategoryCommand } from './commands/impl/delete-category.command';
+import { IUser } from '@interfaces/interfaces';
+import { GetCategoriesQuery } from './queries/impl/get-categories.query';
 @Auth()
 @Controller('category')
 export class CategoryController {
@@ -37,6 +40,18 @@ export class CategoryController {
     );
     return {
       category,
+    };
+  }
+
+  @Get(GetCategoriesContract.topic)
+  public async getCategories(
+    @User() user: IUser,
+  ): Promise<GetCategoriesContract.Response> {
+    const categories = await this.queryBus.execute(
+      new GetCategoriesQuery(user.id),
+    );
+    return {
+      categories,
     };
   }
 

@@ -10,13 +10,21 @@ import {
 import { UpdateCategoryHandler } from './commands/handlers/update-category.handler';
 import { GetCategoryHandler } from './queries/handlers/get-category.handler';
 import { DeleteCategoryHandler } from './commands/handlers/delete-category.handler';
+import { CreateSubCategoryHandler } from './commands/handlers/create-sub-category.handler';
+import { GetSubCategoryHandler } from './queries/handlers/get-sub-category.handler';
+import { GetCategoriesHandler } from './queries/handlers/get-categories.handler';
 
 const CommandHandlers = [
   CreateCategoryHandler,
   UpdateCategoryHandler,
   DeleteCategoryHandler,
+  CreateSubCategoryHandler,
 ];
-const QueryHandlers = [GetCategoryHandler];
+const QueryHandlers = [
+  GetCategoryHandler,
+  GetSubCategoryHandler,
+  GetCategoriesHandler,
+];
 
 @Module({
   controllers: [CategoryController, SubCategoryController],

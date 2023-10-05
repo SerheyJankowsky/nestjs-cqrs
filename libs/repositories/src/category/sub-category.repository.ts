@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../../src/db/db.service';
-import { ISubCategory, PartialSubCategory } from '@interfaces/interfaces';
+import { ICategory, ISubCategory } from '@interfaces/interfaces';
+import { SubcategoryEntity } from '@entities/entities';
 
 @Injectable()
 export class SubCategoryRepository {
@@ -14,20 +15,34 @@ export class SubCategoryRepository {
     return isExist;
   }
 
-  public createSubCategory(
-    subCategory: PartialSubCategory,
+  public async getAllSubCategories(
+    categoryId: string,
+  ): Promise<ISubCategory[]> {
+    return this.prismaService.subCategory.findMany({
+      where: {
+        categoryId,
+      },
+    });
+  }
+
+  public async createSubCategory(
+    subCategory: SubcategoryEntity,
     categoryId: string,
   ): Promise<ISubCategory> {
+    const isExist = await this.findCategory(categoryId);
+    if (!isExist) {
+      throw new Error("Category doesn't exist");
+    }
     return this.prismaService.subCategory.create({
       data: {
-        name: subCategory.name,
+        ...subCategory,
         categoryId,
       },
     });
   }
 
   public async updateSubCategory(
-    subCategory: PartialSubCategory,
+    subCategory: SubcategoryEntity,
     id: string,
   ): Promise<ISubCategory> {
     const isExist = await this.findSubCategory(id);
@@ -37,7 +52,7 @@ export class SubCategoryRepository {
     return this.prismaService.subCategory.update({
       where: { id },
       data: {
-        name: subCategory.name,
+        ...subCategory,
       },
     });
   }
@@ -68,5 +83,9 @@ export class SubCategoryRepository {
 
   private findSubCategory(id: string): Promise<ISubCategory> {
     return this.prismaService.subCategory.findUnique({ where: { id } });
+  }
+
+  private findCategory(id: string): Promise<ICategory> {
+    return this.prismaService.category.findUnique({ where: { id } });
   }
 }

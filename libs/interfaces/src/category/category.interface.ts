@@ -5,6 +5,7 @@ export interface ICategory {
   userId?: string | null;
   name: string;
   id?: string;
+  image?: string;
   subCategories?: ISubCategory[];
   thing?: IThing[];
 }
