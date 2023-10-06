@@ -9,3 +9,6 @@ export * from './category/get-category.contract';
 export * from './category/delete-category.contract';
 export * from './category/get-sub-category.contracts';
 export * from './category/get-categories.contract';
+export * from './category/update-sub-category.contract';
+export * from './category/delete-sub-category.contract';
+export * from './category/move-sub-category.contract';
