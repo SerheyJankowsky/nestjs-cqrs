@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthGuardModule } from '@guards/auth/authGuard.module';
 import { CategoryModule } from './category/category.module';
+import { ThingModule } from './thing/thing.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { CategoryModule } from './category/category.module';
     AccountModule,
     AuthModule,
     CategoryModule,
+    ThingModule,
   ],
   controllers: [],
   providers: [],

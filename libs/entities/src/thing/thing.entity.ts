@@ -7,6 +7,7 @@ export class ThingEntity implements IThing {
   name: string;
   subCategoryId: string | null;
   userId: string | null;
+  tags: string[] | null;
 
   constructor(partial: PartialThing) {
     Object.assign(this, partial);

@@ -5,6 +5,7 @@ export interface IThing {
   id: string;
   description: string | null;
   categoryId: string | null;
+  tags: string[] | null;
 }
 
 export type PartialThing = Partial<IThing>;

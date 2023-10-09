@@ -42,6 +42,7 @@ model Thing {
   name          String       @unique
   image         String?
   description   String?
+  tags          String[]     @default([])
   categoryId    String?
   userId        String?
   subCategoryId String?

@@ -87,7 +87,8 @@
       "^@interfaces/interfaces(|/.*)$": "<rootDir>/libs/interfaces/src/$1",
       "^@contracts/contracts(|/.*)$": "<rootDir>/libs/contracts/src/$1",
       "^@guards/guards(|/.*)$": "<rootDir>/libs/guards/src/$1",
-      "^@decorators/decorators(|/.*)$": "<rootDir>/libs/decorators/src/$1"
+      "^@decorators/decorators(|/.*)$": "<rootDir>/libs/decorators/src/$1",
+      "^@enums/enums(|/.*)$": "<rootDir>/libs/enums/src/$1"
     }
   }
 }
